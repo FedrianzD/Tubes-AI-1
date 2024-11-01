@@ -57,7 +57,7 @@ class problem{
 
             std::random_device rd;
             std::mt19937 rng(rd());
-            std::shuffle(all_pairs.begin(), all_pairs.end(), rng);
+            // std::shuffle(all_pairs.begin(), all_pairs.end(), rng);
 
             for (const auto pair : all_pairs) {
                 auto next_state = action(pair.first, pair.second);
