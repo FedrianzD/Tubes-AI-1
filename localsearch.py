@@ -8,11 +8,12 @@ from problem import *
 # Genetic Algorithm
 
 def steepestHillCLimb(problem):
-    current  = A(problem.current_state)
+    current  = A(problem.current_state, problem.Objective_func)
     while True:
         neighbor = problem.get_neighbor()
-        print(neighbor.value, current.value)
+        print(current.value)
         if neighbor.value <= current.value:
+            print(BObjective_Function(current.state))
             return current.state
         current = neighbor
 
@@ -20,8 +21,9 @@ def HillCLimbSideways(problem):
     current  = A(problem.current_state)
     while True:
         neighbor = problem.get_neighbor()
-        print(neighbor.value, current.value)
+        print(current.value)
         if neighbor.value < current.value:
+            print(BObjective_Function(current.state))
             return current.state
         current = neighbor
 
