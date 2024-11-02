@@ -3,11 +3,12 @@
 #include <thread>
 #include "localsearch.cpp"
 int main(){
-    // cout << "Hello World" << endl;
     auto start = std::chrono::high_resolution_clock::now();
 
     problem p = problem();
-    vector<vector<vector<int>>> result = steepestHillClimb(p);
+    // vector<vector<vector<int>>> result = steepestHillClimb(p);
+    Scheduler scheduler = Scheduler("linear", 100, 0.99, 0.1, 0.1);
+    vector<vector<vector<int>>> result = simulatedAnnealing(p, scheduler);
 
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end - start;
