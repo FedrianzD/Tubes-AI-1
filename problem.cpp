@@ -99,15 +99,15 @@ public:
         }
 
         current_state = best_neighbor;
-    return A(best_neighbor);
+        return A(best_neighbor);
     }
-        A get_neighbor_random(){
-            std::random_device rd;
-            std::mt19937 rng(rd());
-            std::shuffle(all_pairs.begin(), all_pairs.end(), rng);
-            std::uniform_int_distribution<int> distInt(0, all_pairs.size()-1);
-            auto pair = all_pairs[distInt(rng)];
-            auto next_state = action(pair.first, pair.second);
-            return A(next_state);
-        }
+    A get_neighbor_random(){
+        std::random_device rd;
+        std::mt19937 rng(rd() + chrono::steady_clock::now().time_since_epoch().count());
+        std::shuffle(all_pairs.begin(), all_pairs.end(), rng);
+        std::uniform_int_distribution<int> distInt(0, all_pairs.size()-1);
+        auto pair = all_pairs[distInt(rng)];
+        auto next_state = action(pair.first, pair.second);
+        return A(next_state);
+    }
 };
