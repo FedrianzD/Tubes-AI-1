@@ -2,18 +2,21 @@
 #include <chrono>
 #include <thread>
 #include "localsearch.cpp"
-int main(){
-    auto start = std::chrono::high_resolution_clock::now();
 
-    problem p = problem();
-    // vector<vector<vector<int>>> result = steepestHillClimb(p);
+int main(){
+    auto start = chrono::high_resolution_clock::now();
+
+    problem p = problem(5, 10);
+    // vector<vector<vector<int>>> result = Util::convertTo3D(RandomRestartHillClimbing(), 5, 5, 5);
     Scheduler scheduler = Scheduler("linear", 100, 0.99, 0.1, 0.1);
     vector<vector<vector<int>>> result = simulatedAnnealing(p, scheduler);
+    // GeneticAlgo gen = GeneticAlgo();
+    // vector<vector<vector<int>>> result = Util::convertTo3D(gen.genetic_algo(),5,5,5);
 
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> elapsed = end - start;
-    std::cout << "Elapsed time: " << elapsed.count() << " seconds" << std::endl;
-    // std::vector<std::vector<std::vector<int>>> magic_cube = 
+    auto end = chrono::high_resolution_clock::now();
+    chrono::duration<double> elapsed = end - start;
+    cout << "Elapsed time: " << elapsed.count() << " seconds" << endl;
+    // vector<vector<vector<int>>> magic_cube = 
     // {
     //     {
     //         {22, 11, 9},

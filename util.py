@@ -312,5 +312,6 @@ def randomize_initial_state(n=5, random_state=0):
     
     # Reshape the shuffled numbers into an n x n x n array
     state = numbers.reshape((n, n, n))
+    print(state)
     
     return state

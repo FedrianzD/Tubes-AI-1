@@ -212,7 +212,7 @@ class GeneticAlgo:
         population = self.init_population()
 
         for generation in range(self.generations):
-            fitnesses = [Objective_Function(ind) for ind in population]
+            fitnesses = [BObjective_Function(ind) for ind in population]
 
             if max(fitnesses) == 105:
                 print(f"Solution found at generation {generation}")
@@ -238,5 +238,5 @@ class GeneticAlgo:
             if (generation % 100 == 0):
                 print("Generation", generation)
                 print("Max fitness:", max(fitnesses))
-        fitnesses = [Objective_Function(ind) for ind in population]
+        fitnesses = [BObjective_Function(ind) for ind in population]
         return population[np.argmax(fitnesses)]

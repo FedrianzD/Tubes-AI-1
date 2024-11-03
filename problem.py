@@ -30,7 +30,7 @@ class problem:
 
         max_states = [state[0] for state in sorted_states if state[1] == max_val]
 
-        neighbor = random.choice(max_states)
+        neighbor = max_states[0]
 
         self.current_state = neighbor
         
