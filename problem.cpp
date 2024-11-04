@@ -55,6 +55,13 @@ public:
         return z * n * n + y * n + x;
     }
 
+    tuple<int, int, int> reverseIndex(int index, int n) const {
+        int z = index / (n * n);
+        int y = (index / n) % n;
+        int x = index % n;
+        return make_tuple(z, y, x);
+    }
+
     vector<int> action(tuple<int, int, int> coor1, tuple<int, int, int> coor2) {
         vector<int> new_state = this->current_state;
 
@@ -115,8 +122,27 @@ public:
             }
         }
 
+        pair<tuple<int, int, int>, tuple<int, int, int>> points = getPoint(best_neighbor, current_state);
+        print_point(points.first);
+        print_point(points.second);
+        cout << endl;
+
         current_state = best_neighbor;
         return Node(best_neighbor);
+    }
+
+    pair<tuple<int, int, int>, tuple<int, int, int>> getPoint(vector<int> state1, vector<int> state2) {
+        int point1,point2;
+        for (int i=0; i < state1.size(); i++) {
+            if (state1[i] != state2[i]) {
+                if (point1) {
+                    point2 = i;
+                } else {
+                    point1 = i;
+                }
+            }
+        }
+        return make_pair(reverseIndex(point1, n), reverseIndex(point2, n));
     }
 
     Node get_neighbor_random() {
@@ -160,11 +186,16 @@ public:
             }
         }
 
+        pair<tuple<int, int, int>, tuple<int, int, int>> points = getPoint(next_state, current_state);
+        print_point(points.first);
+        print_point(points.second);
+        cout << endl;
+
         return Node(next_state);
     }
 
     void print_point(const tuple<int, int, int>& point) {
-        cout << "(" << get<0>(point) << ", " << get<1>(point) << ", " << get<2>(point) << ")" << endl;
+        cout << get<0>(point) << " " << get<1>(point) << " " << get<2>(point) << " ";
     }
 
     void update_penalties(const vector<int>& state) {

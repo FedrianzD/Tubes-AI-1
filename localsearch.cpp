@@ -13,27 +13,44 @@
 using namespace std;
 
 Node steepestHillClimb(problem p) {
+    cout << "HC" << endl;
     Node current = Node(p.current_state);
+    int i = 0;
+    cout << i << endl;
+    cout << current.value << endl;
+    for(int j = 0; j < current.state.size(); j++){
+                cout << current.state[j] << " ";
+    }
     while (true) {
+        i++;
+        cout << i << endl;
         Node neighbor = p.get_neighbor();
         if (neighbor.value <= current.value) {
-            cout << current.value << endl;
             return current;
         }
         current = neighbor;
+        cout << current.value << endl;
     }
 }
 
 Node SidewaysHillClimb(problem p) {
+    cout << "SMHC" << endl;
     Node current = Node(p.current_state);
     int i = 0;
+    cout << i << endl;
+    cout << current.value << endl;
+    for(int j = 0;j < current.state.size(); j++){
+                cout << current.state[j] << " ";
+    }
     while (true) {
         i++;
+        cout << i << endl;
         Node neighbor = p.get_neighbor();
         if (neighbor.value < current.value) {
             return current;
         }
         current = neighbor;
+        cout << current.value << endl;
     }
 }
 
@@ -219,14 +236,23 @@ bool choose_next(double delta, double T, bool static2 = true, double thresh = 0.
     if (!static2){
         thresh = distFloat(rng);
     }
-    cout << (proba > thresh) << endl;
+    // cout << (proba > thresh) << endl;
+    cout << proba << endl;
     return proba > thresh;
 }
 vector<int> simulatedAnnealing(problem p, Scheduler scheduler, double thresh = 0.5){
     int cont = 0;
     Node current = Node(p.current_state);
+    cout << "SA" << endl;
+    int i = 0;
+    cout << i << endl;
+    cout << current.value << endl;
+    for(int j = 0; j < current.state.size(); j++){
+                cout << current.state[j] << " ";
+    }
     int time = 1;
     while (true){
+        i++;
         double T = scheduler.calculate(time);
         if (T == 0){
             return current.state;
@@ -245,6 +271,7 @@ vector<int> simulatedAnnealing(problem p, Scheduler scheduler, double thresh = 0
                 current = next;
             }
         }
+        cout << current.value << endl;
         // cout << "t: " << time << endl;
         // cout << "value: " << current.value << endl;
         if (time % 10000 == 0) {

@@ -5,9 +5,53 @@
 
 int main(){
     auto start = chrono::high_resolution_clock::now();
-
+    int algo;
+    cout << "Masukkan algoritma yang ingin digunakan (1. SteepestHillClimbing, 2. SidewaysHillClimb, 3. RandomRestartHillClimbing, 4. StochasticHillClimb, 5. SimulatedAnnealing, 6. GeneticAlgo): ";
+    cin >> algo;
     problem p = problem(5, 0);
-    Scheduler scheduler = Scheduler("eksponen", 100, 0.9999, 0.1, 0.1);
+    vector<vector<vector<int>>> result;
+    Scheduler scheduler;
+    switch (algo)
+    {
+    case 1:
+        result = Util::convertTo3D(steepestHillClimb(p).state, 5, 5, 5);
+        break;
+    case 2:
+        result = Util::convertTo3D(SidewaysHillClimb(p).state, 5, 5, 5);
+        break;
+    case 3:
+        result = Util::convertTo3D(RandomRestartHillClimbing(), 5, 5, 5);
+        break;
+    case 4:
+        result = Util::convertTo3D(stochasticHillClimb(p).state, 5, 5, 5);
+        break;
+    case 5:
+        cout << "Masukkan tipe scheduler (linear, exp, log): ";
+        string tipe;
+        cin >> tipe;
+        cout << "Masukkan T0: ";
+        double T0;
+        cin >> T0;
+        cout << "Masukkan alpha: ";
+        double alpha;
+        cin >> alpha;
+        cout << "Masukkan beta: ";
+        double beta;
+        cin >> beta;
+        cout << "Masukkan k: ";
+        double k;
+        cin >> k;
+        scheduler = Scheduler(tipe, T0, alpha, beta, k);
+        result = Util::convertTo3D(simulatedAnnealing(p, scheduler), 5, 5, 5);
+        break;
+    case 6:
+        GeneticAlgo gen = GeneticAlgo();
+        result = Util::convertTo3D(gen.genetic_algo(),5,5,5);
+        break;
+    default:
+        break;
+    }
+    
     // vector<vector<vector<int>>> result = Util::convertTo3D(RandomRestartHillClimbing(), 5, 5, 5);
     // vector<vector<vector<int>>> result = Util::convertTo3D(steepestHillClimbGLS(p).state, 5, 5, 5);
     // vector<vector<vector<int>>> result = Util::convertTo3D(steepestHillClimb(p).state, 5, 5, 5);
