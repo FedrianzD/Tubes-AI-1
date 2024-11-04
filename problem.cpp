@@ -50,8 +50,8 @@ public:
         }
 
         // shuffle if needed
-        std::mt19937 rng(random_seed);
-        shuffle(all_pairs.begin(), all_pairs.end(), rng);
+        // std::mt19937 rng(random_seed);
+        // shuffle(all_pairs.begin(), all_pairs.end(), rng);
     }
 
     int index(int z, int y, int x) const {

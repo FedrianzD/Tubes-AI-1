@@ -73,14 +73,14 @@ int main(){
     chrono::duration<double> elapsed = end - start;
     cout << "Elapsed time: " << elapsed.count() << " seconds" << endl;
 
-    for (int z = 0; z < 5; z++){
-        for (int y = 0; y < 5; y++){
-            for (int x = 0; x < 5; x++){
-                cout << result[z][y][x] << " ";
-            }
-            cout << endl;
-        }
-        cout << endl;
-    }
+    // for (int z = 0; z < 5; z++){
+    //     for (int y = 0; y < 5; y++){
+    //         for (int x = 0; x < 5; x++){
+    //             cout << result[z][y][x] << " ";
+    //         }
+    //         cout << endl;
+    //     }
+    //     cout << endl;
+    // }
     return 0;
 }
