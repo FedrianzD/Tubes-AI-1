@@ -13,16 +13,17 @@ Repository ini berisi implementasi berbagai algoritma local search untuk menyele
    ```
 3. Compile Program
    ```
-   
+   g++ -o main main.cpp
    ```
 4. Execute
    ```
-   
+   ./main.exe > NamaAlgoritma.txt
+   python /visualization/gui.py
    ```
 
 ## Pembagian Tugas Anggota Kelompok
-1. Maggie Zeta RS (13521117): 
-2. Aurelius Justin PF (13522020): 
-3. Dhidit Abdi Aziz (13522040): 
-4. Fedrianz Dharma (13522090): 
-5. Abdullah Mubarak (13522101):
+1. Maggie Zeta RS (13521117): laporan
+2. Aurelius Justin PF (13522020): visualisasi, algoritma
+3. Dhidit Abdi Aziz (13522040): laporan
+4. Fedrianz Dharma (13522090): laporan, algoritma
+5. Abdullah Mubarak (13522101): laporan, algoritma
