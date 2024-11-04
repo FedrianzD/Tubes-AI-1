@@ -87,39 +87,34 @@ Node SidewaysHillClimb(problem p, int max_sideways) {
     return current;
 }
 
-vector<int> RandomRestartHillClimbing() {
-    mutex output_mutex;
-    const int num_threads = thread::hardware_concurrency();
-    int best_value = 0;
-    vector<int> best_state;
-
-    for (int batch_start = 0; best_value < 60; batch_start += num_threads) {
-        vector<future<Node>> futures;
-
-        for (int i = 0; i < num_threads; ++i) {
-            int random_seed = batch_start + i;
-            problem p = problem(5, random_seed);
-            futures.emplace_back(async(launch::async, steepestHillClimb, p));
-        }
-
-        for (auto& fut : futures) {
-            auto result = fut.get();
-            int value = result.value;
-
-            if (value > best_value) {
-                lock_guard<mutex> lock(output_mutex);
-                best_value = value;
-                best_state = result.state;
-            }
-        }
-
-        lock_guard<mutex> lock(output_mutex);
-        cout << "Best value after " << batch_start + num_threads
-             << " random restarts: " << best_value << endl;
+vector<int> RandomRestartHillClimbing(int max = 50) {
+    cout << "RHC" << endl;
+    int random_state = 0;
+    int i = 0;
+    problem p = problem(5,random_state);
+    Node current_state = Node(p.current_state);
+    for(int j = 0;j < current_state.state.size(); j++){
+                cout << current_state.state[j] << " ";
     }
-
-    cout << "Final best value: " << best_value << endl;
-    return best_state;
+    cout << endl;
+    while (i < max) {
+        p = problem(5, random_state);
+        current_state = Node(p.current_state);
+        int j = 0;
+        while (true){
+            j++;
+            Node neighbor = p.get_neighbor();
+            if (neighbor.value <= current_state.value) {
+                break;
+            }
+            current_state = neighbor;
+        }
+        i++;
+        random_state++;
+        cout << "Jumlah iterasi per restart: " << j << endl;  
+    }
+    cout << "Jumlah restart: " << i << endl;
+    return current_state.state;
 }
 
 vector<int> StochasticHillClimb(problem p, int iter){
