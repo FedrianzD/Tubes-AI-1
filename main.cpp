@@ -29,7 +29,7 @@ int main(){
         result = Util::convertTo3D(RandomRestartHillClimbing(), 5, 5, 5);
         break;
     case 4:
-        cout << "Masukkan jumlah iterasi: " << endl;
+        cerr << "Masukkan jumlah iterasi: " << endl;
         int iter;
         cin >> iter;
         result = Util::convertTo3D(StochasticHillClimb(p, iter), 5, 5, 5);
