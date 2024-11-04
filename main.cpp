@@ -50,11 +50,11 @@ int main(){
         // cout << "Masukkan k: ";
         
         // cin >> k;
-        scheduler = Scheduler("exp", 100, 0.95, 0.1, 1.0);
+        scheduler = Scheduler("linear", 1000, 0.95, 0.1, 1.0);
         result = Util::convertTo3D(simulatedAnnealing(p, scheduler), 5, 5, 5);
         break;
     case 6:
-        gen = GeneticAlgo();
+        gen = GeneticAlgo(25, 1000);
         result = Util::convertTo3D(gen.genetic_algo(),5,5,5);
         break;
     default:

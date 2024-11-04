@@ -139,7 +139,7 @@ public:
     double mutation_rate;
     string crossover_type;
 
-    GeneticAlgo(int pop_size = 100, int n = 5, int generations = 1000, double mutation_rate = 0.1, string crossover_type = "ox")
+    GeneticAlgo(int pop_size = 100, int generations = 1000, double mutation_rate = 0.1, string crossover_type = "ox", int n = 5)
         : pop_size(pop_size), n(n), generations(generations), mutation_rate(mutation_rate), crossover_type(crossover_type) {}
 
     vector<int> init_individual() {
@@ -315,7 +315,7 @@ vector<int> simulatedAnnealing(problem p, Scheduler scheduler, double thresh = 0
     int time = 1;
     while (true){
         i++;
-        cout << "iterasi: " << i << endl;
+        cout << i << endl;
         double T = scheduler.calculate(time);
         if (T == 0){
             return current.state;
@@ -350,7 +350,7 @@ vector<int> simulatedAnnealing(problem p, Scheduler scheduler, double thresh = 0
         //     cout << "value: " << current.value << endl;
         // }
         time++;
-        cout << "stuck: " << cont << endl;
+        cout << cont << endl;
     }
     cout << cont;
 }

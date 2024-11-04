@@ -73,7 +73,7 @@ def parse_input_file(filename):
             while i < len(lines):
                 if lines[i].strip().startswith("Execution Time:"):
                     execution_time = float(lines[i].split(":")[1].strip())
-                    stuck = int(lines[i+1].strip())
+                    # stuck = int(lines[i+1].strip())
                     break
 
                 iteration_num = int(lines[i].strip())
