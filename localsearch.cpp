@@ -12,6 +12,32 @@
 
 using namespace std;
 
+tuple<int, int, int> reverseIndex(int index, int n) {
+    int z = index / (n * n);
+    int y = (index / n) % n;
+    int x = index % n;
+    return make_tuple(z, y, x);
+}
+
+void print_point(const tuple<int, int, int>& point) {
+    cout << get<0>(point) << " " << get<1>(point) << " " << get<2>(point) << " ";
+}
+
+pair<tuple<int, int, int>, tuple<int, int, int>> getPoint(vector<int> state1, vector<int> state2) {
+    int point1 = -1;
+    int point2 = -1;
+    for (int i=0; i < state1.size(); i++) {
+        if (state1[i] != state2[i]) {
+            if (point1 != -1) {
+                point2 = i;
+            } else {
+                point1 = i;
+            }
+        }
+    }
+    return make_pair(reverseIndex(point1, 5), reverseIndex(point2, 5));
+}
+
 Node steepestHillClimb(problem p) {
     cout << "HC" << endl;
     Node current = Node(p.current_state);
@@ -21,13 +47,18 @@ Node steepestHillClimb(problem p) {
     for(int j = 0; j < current.state.size(); j++){
                 cout << current.state[j] << " ";
     }
+    cout << endl;
     while (true) {
         i++;
-        cout << i << endl;
         Node neighbor = p.get_neighbor();
         if (neighbor.value <= current.value) {
             return current;
         }
+        cout << i << endl;
+        pair<tuple<int, int, int>, tuple<int, int, int>> points = getPoint(neighbor.state, current.state);
+        print_point(points.first);
+        print_point(points.second);
+        cout << endl;
         current = neighbor;
         cout << current.value << endl;
     }
@@ -261,6 +292,7 @@ vector<int> simulatedAnnealing(problem p, Scheduler scheduler, double thresh = 0
     for(int j = 0; j < current.state.size(); j++){
                 cout << current.state[j] << " ";
     }
+    cout << endl;
     int time = 1;
     while (true){
         i++;
@@ -268,6 +300,7 @@ vector<int> simulatedAnnealing(problem p, Scheduler scheduler, double thresh = 0
         if (T == 0){
             return current.state;
         }
+        cout << i << endl;
         Node next = p.get_neighbor_random();
         int delta = next.value - current.value;
         if (delta == 0) {
@@ -276,19 +309,30 @@ vector<int> simulatedAnnealing(problem p, Scheduler scheduler, double thresh = 0
             cont = 0;
         }
         if (delta > 0){
+            cout << "1" << endl;
+            pair<tuple<int, int, int>, tuple<int, int, int>> points = getPoint(next.state, current.state);
+            print_point(points.first);
+            print_point(points.second);
+            cout << endl;
             current = next;
         } else {
             if (choose_next(delta, T, true, thresh)){
+                pair<tuple<int, int, int>, tuple<int, int, int>> points = getPoint(next.state, current.state);
+                print_point(points.first);
+                print_point(points.second);
+                cout << endl;
                 current = next;
+            } else {
+                cout << "-1 -1 -1 -1 -1 -1" << endl;
             }
         }
         cout << current.value << endl;
         // cout << "t: " << time << endl;
         // cout << "value: " << current.value << endl;
-        if (time % 10000 == 0) {
-            cout << "t: " << time << endl;
-            cout << "value: " << current.value << endl;
-        }
+        // if (time % 10000 == 0) {
+        //     cout << "t: " << time << endl;
+        //     cout << "value: " << current.value << endl;
+        // }
         time++;
     }
 }

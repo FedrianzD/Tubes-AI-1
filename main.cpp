@@ -6,7 +6,7 @@
 int main(){
     auto start = chrono::high_resolution_clock::now();
     int algo;
-    cout << "Masukkan algoritma yang ingin digunakan (1. SteepestHillClimbing, 2. SidewaysHillClimb, 3. RandomRestartHillClimbing, 4. StochasticHillClimb, 5. SimulatedAnnealing, 6. GeneticAlgo): ";
+    // cout << "Masukkan algoritma yang ingin digunakan (1. SteepestHillClimbing, 2. SidewaysHillClimb, 3. RandomRestartHillClimbing, 4. StochasticHillClimb, 5. SimulatedAnnealing, 6. GeneticAlgo): ";
     cin >> algo;
     problem p = problem(5, 0);
     vector<vector<vector<int>>> result;
@@ -35,22 +35,22 @@ int main(){
         result = Util::convertTo3D(StochasticHillClimb(p, iter), 5, 5, 5);
         break;
     case 5:
-        cout << "Masukkan tipe scheduler (linear, exp, log): ";
+        // cout << "Masukkan tipe scheduler (linear, exp, log): ";
         
-        cin >> tipe;
-        cout << "Masukkan T0: ";
+        // cin >> tipe;
+        // cout << "Masukkan T0: ";
         
-        cin >> T0;
-        cout << "Masukkan alpha: ";
+        // cin >> T0;
+        // cout << "Masukkan alpha: ";
         
-        cin >> alpha;
-        cout << "Masukkan beta: ";
+        // cin >> alpha;
+        // cout << "Masukkan beta: ";
         
-        cin >> beta;
-        cout << "Masukkan k: ";
+        // cin >> beta;
+        // cout << "Masukkan k: ";
         
-        cin >> k;
-        scheduler = Scheduler(tipe, T0, alpha, beta, k);
+        // cin >> k;
+        scheduler = Scheduler("exp", 100, 0.95, 0.1, 1.0);
         result = Util::convertTo3D(simulatedAnnealing(p, scheduler), 5, 5, 5);
         break;
     case 6:
@@ -64,23 +64,23 @@ int main(){
     // vector<vector<vector<int>>> result = Util::convertTo3D(RandomRestartHillClimbing(), 5, 5, 5);
     // vector<vector<vector<int>>> result = Util::convertTo3D(steepestHillClimbGLS(p).state, 5, 5, 5);
     // vector<vector<vector<int>>> result = Util::convertTo3D(steepestHillClimb(p).state, 5, 5, 5);
-    vector<vector<vector<int>>> result = Util::convertTo3D(simulatedAnnealing(p, scheduler));
+    // vector<vector<vector<int>>> result = Util::convertTo3D(simulatedAnnealing(p, scheduler));
     // vector<vector<vector<int>>> result = Util::convertTo3D(simulatedAnnealingGLS(p, scheduler));
     // GeneticAlgo gen = GeneticAlgo();
     // vector<vector<vector<int>>> result = Util::convertTo3D(gen.genetic_algo(),5,5,5);
 
     auto end = chrono::high_resolution_clock::now();
     chrono::duration<double> elapsed = end - start;
-    cout << "Elapsed time: " << elapsed.count() << " seconds" << endl;
+    cout << "Execution Time:" << elapsed.count() << endl;
 
-    for (int z = 0; z < 5; z++){
-        for (int y = 0; y < 5; y++){
-            for (int x = 0; x < 5; x++){
-                cout << result[z][y][x] << " ";
-            }
-            cout << endl;
-        }
-        cout << endl;
-    }
+    // for (int z = 0; z < 5; z++){
+    //     for (int y = 0; y < 5; y++){
+    //         for (int x = 0; x < 5; x++){
+    //             cout << result[z][y][x] << " ";
+    //         }
+    //         cout << endl;
+    //     }
+    //     cout << endl;
+    // }
     return 0;
 }
