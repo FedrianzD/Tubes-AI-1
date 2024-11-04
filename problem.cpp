@@ -125,45 +125,26 @@ public:
             }
         }
 
-        pair<tuple<int, int, int>, tuple<int, int, int>> points = getPoint(best_neighbor, current_state);
-        print_point(points.first);
-        print_point(points.second);
-        cout << endl;
-
         current_state = best_neighbor;
         return Node(best_neighbor);
     }
 
-    pair<tuple<int, int, int>, tuple<int, int, int>> getPoint(vector<int> state1, vector<int> state2) {
-        int point1,point2;
-        for (int i=0; i < state1.size(); i++) {
-            if (state1[i] != state2[i]) {
-                if (point1) {
-                    point2 = i;
-                } else {
-                    point1 = i;
-                }
-            }
-        }
-        return make_pair(reverseIndex(point1, n), reverseIndex(point2, n));
-    }
-
     Node get_neighbor_random() {
         const int current_val = Util::BObjective_Function(current_state);
-        double better = 0;
-        double same = 0;
-        double worse = 0;
+        // double better = 0;
+        // double same = 0;
+        // double worse = 0;
         for (const auto& pair : all_pairs) {
             // Launch asynchronous task for each pair in all_pairs
             auto next_state = action(pair.first, pair.second);
             int value = Util::BObjective_Function(next_state, n);
-            if (value > current_val) {
-                better++;
-            } else if (value == current_val) {
-                same++;
-            } else {
-                worse++;
-            }
+            // if (value > current_val) {
+            //     better++;
+            // } else if (value == current_val) {
+            //     same++;
+            // } else {
+            //     worse++;
+            // }
         }
         // cout << "worse: " << worse/all_pairs.size() << ", same: " << same/all_pairs.size() << ", better: " << better/all_pairs.size() << endl;
 
@@ -179,27 +160,20 @@ public:
         } while (point1 == point2);  
 
         auto next_state = action(point1, point2);
-        for (int i = 0; i < next_state.size(); i++) {
-            if (next_state[i] != current_state[i]) {
-                cout << next_state[i] << " ";
-                cout << current_state[i] << " ";
-                cout << i << endl;
-                cout << Util::BObjective_Function(current_state) << " ";
-                cout << Util::BObjective_Function(next_state) << endl;
-            }
-        }
-
-        pair<tuple<int, int, int>, tuple<int, int, int>> points = getPoint(next_state, current_state);
-        print_point(points.first);
-        print_point(points.second);
-        cout << endl;
+        // for (int i = 0; i < next_state.size(); i++) {
+        //     if (next_state[i] != current_state[i]) {
+        //         cout << next_state[i] << " ";
+        //         cout << current_state[i] << " ";
+        //         cout << i << endl;
+        //         cout << Util::BObjective_Function(current_state) << " ";
+        //         cout << Util::BObjective_Function(next_state) << endl;
+        //     }
+        // }
 
         return Node(next_state);
     }
 
-    void print_point(const tuple<int, int, int>& point) {
-        cout << get<0>(point) << " " << get<1>(point) << " " << get<2>(point) << " ";
-    }
+
 
     void update_penalties(const vector<int>& state) {
         for (size_t i = 0; i < all_pairs.size(); ++i) {
