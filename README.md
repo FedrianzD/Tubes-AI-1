@@ -17,7 +17,7 @@ Repository ini berisi implementasi berbagai algoritma local search untuk menyele
    ```
 4. Execute
    ```
-   ./main.exe > NamaAlgoritma.txt
+   ./main.exe > [NamaAlgoritma].txt
    python /visualization/gui.py
    ```
 
