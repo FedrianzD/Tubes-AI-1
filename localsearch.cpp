@@ -222,9 +222,9 @@ bool choose_next(double delta, double T, bool static2 = true, double thresh = 0.
     }
     return proba > thresh;
 }
-vector<int> simulatedAnnealing(problem p, Scheduler scheduler, double thresh = 0.5){
+vector<int> simulatedAnnealing(problem *p, Scheduler scheduler, double thresh = 0.5){
     int cont = 0;
-    A current = A(p.current_state);
+    A current = A(p->current_state);
     int time = 1;
     while (true){
         double T = scheduler.calculate(time);
@@ -232,8 +232,6 @@ vector<int> simulatedAnnealing(problem p, Scheduler scheduler, double thresh = 0
             return current.state;
         }
         A next = p.get_neighbor_random();
-        // bool use_best_neighbor = (time % 1000 == 0);
-        // A next = use_best_neighbor ? p.get_neighbor() : p.get_neighbor_random();
         int delta = next.value - current.value;
         if (delta == 0) {
             cont++;

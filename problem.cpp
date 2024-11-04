@@ -116,9 +116,6 @@ public:
         }
 
         current_state = best_neighbor;
-        cout << "size: " << all_pairs.size();
-        // val_iter.push_back(pair(max_val, iteration));
-
         return A(best_neighbor);
     }
 
