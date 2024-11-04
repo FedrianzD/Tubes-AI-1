@@ -16,8 +16,9 @@ A steepestHillClimb(problem p) {
     A current = A(p.current_state);
     while (true) {
         A neighbor = p.get_neighbor();
+        cout << current.value << endl;
         if (neighbor.value <= current.value) {
-            // cout << current.value << endl;
+            cout << current.value << endl;
             return current;
         }
         current = neighbor;
@@ -127,7 +128,7 @@ public:
         return {child1, child2};
     }
 
-    vector<int> tournament_selection(const vector<vector<int>>& population, const vector<int>& fitnesses, int k = 3) {
+    vector<int> tournament_selection(const vector<vector<int>>& population, const vector<double>& fitnesses, int k = 3) {
         auto max_fitness_it = max_element(fitnesses.begin(), fitnesses.end());
         int max_index = distance(fitnesses.begin(), max_fitness_it);
         return population[max_index];
@@ -139,10 +140,10 @@ public:
             population.push_back(init_individual());
         }
 
-        vector<int> fitnesses;
+        vector<double> fitnesses;
         for (int generation = 0; generation < generations; ++generation) {
             // Parallel fitness computation
-            vector<future<int>> fitness_futures;
+            vector<future<double>> fitness_futures;
             for (auto& individual : population) {
                 fitness_futures.push_back(async(launch::async, [&individual, this]() { return Util::Objective_Function(individual, n); }));
             }
@@ -213,16 +214,16 @@ class Scheduler{
 
 bool choose_next(double delta, double T, bool static2 = true, double thresh = 0.5){
     double proba = exp(delta/T);
-    std::random_device rd;
-    std::mt19937 rng(rd());
-    std::uniform_real_distribution<float> distFloat(0.0f, 1.0f);
+    random_device rd;
+    mt19937 rng(rd());
+    uniform_real_distribution<float> distFloat(0.0f, 1.0f);
     if (!static2){
         thresh = distFloat(rng);
     }
     return proba > thresh;
 }
 vector<int> simulatedAnnealing(problem p, Scheduler scheduler, double thresh = 0.5){
-        
+    int cont = 0;
     A current = A(p.current_state);
     int time = 1;
     while (true){
@@ -231,7 +232,36 @@ vector<int> simulatedAnnealing(problem p, Scheduler scheduler, double thresh = 0
             return current.state;
         }
         A next = p.get_neighbor_random();
+        // bool use_best_neighbor = (time % 1000 == 0);
+        // A next = use_best_neighbor ? p.get_neighbor() : p.get_neighbor_random();
         int delta = next.value - current.value;
+        if (delta == 0) {
+            cont++;
+        } else {
+            cont = 0;
+        }
+        // if (cont > 40) {
+        //     cout << "current: " << current.value << endl;
+        //     for (int z = 0; z < 5; z++){
+        //         for (int y = 0; y < 5; y++){
+        //             for (int x = 0; x < 5; x++){
+        //                 cout << Util::convertTo3D(current.state)[z][y][x] << " ";
+        //             }
+        //             cout << endl;
+        //         }
+        //         cout << endl;
+        //     }
+        //     cout << "next: " << next.value << endl;
+        //     for (int z = 0; z < 5; z++){
+        //         for (int y = 0; y < 5; y++){
+        //             for (int x = 0; x < 5; x++){
+        //                 cout << Util::convertTo3D(next.state)[z][y][x] << " ";
+        //             }
+        //             cout << endl;
+        //         }
+        //         cout << endl;
+        //     }
+        // }
         if (delta > 0){
             current = next;
         } else {
@@ -239,8 +269,12 @@ vector<int> simulatedAnnealing(problem p, Scheduler scheduler, double thresh = 0
                 current = next;
             }
         }
-        cout << "T: " << T << endl;
-        cout << "value: " << current.value << endl;
+        // cout << "t: " << time << endl;
+        // cout << "value: " << current.value << endl;
+        if (time % 10000 == 0) {
+            cout << "t: " << time << endl;
+            cout << "value: " << current.value << endl;
+        }
         time++;
     }
 }

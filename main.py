@@ -4,7 +4,7 @@ from util import *
 import time
 
 p = problem(random_state=0, Objective_Func=Objective_Function)
-scheduler = SA_Scheduler(tipe="eksponen", alpha=0.999)
+scheduler = SA_Scheduler(tipe="eksponen", T0=100000, alpha=0.99999)
 
 start_time = time.time()
 
