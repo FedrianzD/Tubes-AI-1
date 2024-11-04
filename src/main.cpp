@@ -9,16 +9,16 @@ int main(){
     // cout << "Masukkan algoritma yang ingin digunakan (1. SteepestHillClimbing, 2. SidewaysHillClimb, 3. RandomRestartHillClimbing, 4. StochasticHillClimb, 5. SimulatedAnnealing, 6. GeneticAlgo): ";
     cin >> algo;
     problem p = problem(5, 0);
-    vector<vector<vector<int>>> result2 = Util::convertTo3D(p.current_state, 5, 5, 5);
-     for (int z = 0; z < 5; z++){
-        for (int y = 0; y < 5; y++){
-            for (int x = 0; x < 5; x++){
-                cout << result2[z][y][x] << " ";
-            }
-            cout << endl;
-        }
-        cout << endl;
-    }
+    // vector<vector<vector<int>>> result2 = Util::convertTo3D(p.current_state, 5, 5, 5);
+    //  for (int z = 0; z < 5; z++){
+    //     for (int y = 0; y < 5; y++){
+    //         for (int x = 0; x < 5; x++){
+    //             cout << result2[z][y][x] << " ";
+    //         }
+    //         cout << endl;
+    //     }
+    //     cout << endl;
+    // }
     vector<vector<vector<int>>> result;
     Scheduler scheduler;
     string tipe;
@@ -83,14 +83,14 @@ int main(){
     chrono::duration<double> elapsed = end - start;
     cout << "Execution Time:" << elapsed.count() << endl;
 
-    for (int z = 0; z < 5; z++){
-        for (int y = 0; y < 5; y++){
-            for (int x = 0; x < 5; x++){
-                cout << result[z][y][x] << " ";
-            }
-            cout << endl;
-        }
-        cout << endl;
-    }
+    // for (int z = 0; z < 5; z++){
+    //     for (int y = 0; y < 5; y++){
+    //         for (int x = 0; x < 5; x++){
+    //             cout << result[z][y][x] << " ";
+    //         }
+    //         cout << endl;
+    //     }
+    //     cout << endl;
+    // }
     return 0;
 }
