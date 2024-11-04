@@ -33,7 +33,7 @@ Node steepestHillClimb(problem p) {
     }
 }
 
-Node SidewaysHillClimb(problem p) {
+Node SidewaysHillClimb(problem p, int max_sideways) {
     cout << "SMHC" << endl;
     Node current = Node(p.current_state);
     int i = 0;
@@ -42,7 +42,8 @@ Node SidewaysHillClimb(problem p) {
     for(int j = 0;j < current.state.size(); j++){
                 cout << current.state[j] << " ";
     }
-    while (true) {
+    int sideways = 0;
+    while (true && sideways < max_sideways) {
         i++;
         cout << "iterasi: " << i << endl;
         Node neighbor = p.get_neighbor();
@@ -51,7 +52,9 @@ Node SidewaysHillClimb(problem p) {
         }
         current = neighbor;
         cout << "value: " << current.value << endl;
+        sideways++;
     }
+    return current;
 }
 
 vector<int> RandomRestartHillClimbing() {
@@ -265,20 +268,17 @@ vector<int> simulatedAnnealing(problem p, Scheduler scheduler, double thresh = 0
     int time = 1;
     while (true){
         i++;
+        cout << "iterasi: " << i << endl;
         double T = scheduler.calculate(time);
         if (T == 0){
             return current.state;
         }
         Node next = p.get_neighbor_random();
         int delta = next.value - current.value;
-        if (delta == 0) {
-            cont++;
-        } else {
-            cont = 0;
-        }
         if (delta > 0){
             current = next;
         } else {
+            cont++;
             if (choose_next(delta, T, true, thresh)){
                 current = next;
             }
@@ -291,5 +291,6 @@ vector<int> simulatedAnnealing(problem p, Scheduler scheduler, double thresh = 0
             cout << "value: " << current.value << endl;
         }
         time++;
+        cout << "stuck: " << cont << endl;
     }
 }

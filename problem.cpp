@@ -165,7 +165,7 @@ public:
                 worse++;
             }
         }
-        cout << "worse: " << worse/all_pairs.size() << ", same: " << same/all_pairs.size() << ", better: " << better/all_pairs.size() << endl;
+        // cout << "worse: " << worse/all_pairs.size() << ", same: " << same/all_pairs.size() << ", better: " << better/all_pairs.size() << endl;
 
         random_device rd;
         mt19937 gen(rd());
