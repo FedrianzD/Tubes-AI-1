@@ -7,13 +7,13 @@
 
 using namespace std;
 
-class A {
+class Node {
 public:
     vector<int> state;
     double value;
     int n;
 
-    A(vector<int> state, int n=5) : state(state), n(n) {
+    Node(vector<int> state, int n=5) : state(state), n(n) {
         this->value = Util::BObjective_Function(state, n);
     }
 };
@@ -76,7 +76,7 @@ public:
         return obj_value - lambda * penalty;
     }
 
-    A get_neighbor() {
+    Node get_neighbor() {
         const int num_threads = thread::hardware_concurrency();
         int max_val = 0;
         vector<int> best_neighbor;
@@ -116,10 +116,10 @@ public:
         }
 
         current_state = best_neighbor;
-        return A(best_neighbor);
+        return Node(best_neighbor);
     }
 
-    A get_neighbor_random() {
+    Node get_neighbor_random() {
         const int current_val = Util::BObjective_Function(current_state);
         double better = 0;
         double same = 0;
@@ -160,7 +160,7 @@ public:
             }
         }
 
-        return A(next_state);
+        return Node(next_state);
     }
 
     void print_point(const tuple<int, int, int>& point) {

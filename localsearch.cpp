@@ -12,11 +12,10 @@
 
 using namespace std;
 
-A steepestHillClimb(problem p) {
-    A current = A(p.current_state);
+Node steepestHillClimb(problem p) {
+    Node current = Node(p.current_state);
     while (true) {
-        A neighbor = p.get_neighbor();
-        cout << current.value << endl;
+        Node neighbor = p.get_neighbor();
         if (neighbor.value <= current.value) {
             cout << current.value << endl;
             return current;
@@ -25,12 +24,12 @@ A steepestHillClimb(problem p) {
     }
 }
 
-A SidewaysHillClimb(problem p) {
-    A current = A(p.current_state);
+Node SidewaysHillClimb(problem p) {
+    Node current = Node(p.current_state);
     int i = 0;
     while (true) {
         i++;
-        A neighbor = p.get_neighbor();
+        Node neighbor = p.get_neighbor();
         if (neighbor.value < current.value) {
             return current;
         }
@@ -45,7 +44,7 @@ vector<int> RandomRestartHillClimbing() {
     vector<int> best_state;
 
     for (int batch_start = 0; best_value < 60; batch_start += num_threads) {
-        vector<future<A>> futures;
+        vector<future<Node>> futures;
 
         for (int i = 0; i < num_threads; ++i) {
             int random_seed = batch_start + i;
@@ -220,46 +219,25 @@ bool choose_next(double delta, double T, bool static2 = true, double thresh = 0.
     if (!static2){
         thresh = distFloat(rng);
     }
+    cout << (proba > thresh) << endl;
     return proba > thresh;
 }
 vector<int> simulatedAnnealing(problem p, Scheduler scheduler, double thresh = 0.5){
     int cont = 0;
-    A current = A(p.current_state);
+    Node current = Node(p.current_state);
     int time = 1;
     while (true){
         double T = scheduler.calculate(time);
         if (T == 0){
             return current.state;
         }
-        A next = p.get_neighbor_random();
+        Node next = p.get_neighbor_random();
         int delta = next.value - current.value;
         if (delta == 0) {
             cont++;
         } else {
             cont = 0;
         }
-        // if (cont > 40) {
-        //     cout << "current: " << current.value << endl;
-        //     for (int z = 0; z < 5; z++){
-        //         for (int y = 0; y < 5; y++){
-        //             for (int x = 0; x < 5; x++){
-        //                 cout << Util::convertTo3D(current.state)[z][y][x] << " ";
-        //             }
-        //             cout << endl;
-        //         }
-        //         cout << endl;
-        //     }
-        //     cout << "next: " << next.value << endl;
-        //     for (int z = 0; z < 5; z++){
-        //         for (int y = 0; y < 5; y++){
-        //             for (int x = 0; x < 5; x++){
-        //                 cout << Util::convertTo3D(next.state)[z][y][x] << " ";
-        //             }
-        //             cout << endl;
-        //         }
-        //         cout << endl;
-        //     }
-        // }
         if (delta > 0){
             current = next;
         } else {

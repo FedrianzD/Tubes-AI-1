@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <numeric>
 #include <random>
 
 using namespace std;
@@ -180,51 +181,11 @@ public:
     }
 
     static vector<int> randomize_initial_state(int n = 5, int random_state = 0) {
-        // vector<vector<vector<int>>> temp = 
-        //     {
-        //         {
-        //             {69, 123, 37, 56, 97},
-        //             {14, 2, 76, 12, 38},
-        //             {17, 119, 6, 24, 51},
-        //             {86, 102, 93, 35, 40},
-        //             {54, 103, 99, 21, 85}
-        //         },
-        //         {
-        //             {89, 11, 28, 113, 107},
-        //             {45, 65, 91, 53, 9},
-        //             {10, 101, 23, 20, 67},
-        //             {68, 95, 5, 26, 94},
-        //             {106, 118, 100, 108, 73}
-        //         },
-        //         {
-        //             {4, 75, 84, 43, 16},
-        //             {31, 3, 72, 36, 83},
-        //             {82, 44, 18, 92, 29},
-        //             {19, 7, 66, 115, 25},
-        //             {88, 58, 22, 81, 87}
-        //         },
-        //         {
-        //             {116, 48, 1, 61, 71},
-        //             {63, 46, 111, 27, 52},
-        //             {50, 98, 117, 120, 41},
-        //             {62, 13, 124, 33, 122},
-        //             {90, 47, 59, 15, 74}
-        //         },
-        //         {
-        //             {39, 109, 32, 112, 105},
-        //             {49, 78, 77, 8, 110},
-        //             {104, 64, 125, 70, 114},
-        //             {79, 60, 55, 30, 42},
-        //             {57, 121, 34, 80, 96}
-        //         }
-        //     };
-        // vector<int> state = convertTo1D(temp);
         vector<int> state(n * n * n);
         iota(state.begin(), state.end(), 1);
-
         std::mt19937 rng(random_state);
         std::shuffle(state.begin(), state.end(), rng);
-
+        
         return state;
     }
 
