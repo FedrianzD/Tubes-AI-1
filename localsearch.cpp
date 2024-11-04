@@ -193,6 +193,7 @@ public:
     }
 
     vector<int> genetic_algo() {
+        cout << "GA" << endl;
         vector<vector<int>> population;
         for (int i = 0; i < pop_size; ++i) {
             population.push_back(init_individual());
@@ -211,10 +212,12 @@ public:
                 fitnesses.push_back(f.get());
             }
 
-            if (*max_element(fitnesses.begin(), fitnesses.end()) == 105) {
+            if (*max_element(fitnesses.begin(), fitnesses.end()) == 109) {
                 cout << "Solution found at generation " << generation << endl;
                 return population[max_element(fitnesses.begin(), fitnesses.end()) - fitnesses.begin()];
             }
+
+            float average = 0;
 
             vector<vector<int>> new_population;
             for (int i = 0; i < pop_size / 2; ++i) {
@@ -227,14 +230,28 @@ public:
                 if ((double)rand() / RAND_MAX < mutation_rate) child1 = mutate(child1);
                 if ((double)rand() / RAND_MAX < mutation_rate) child2 = mutate(child2);
 
+                average += Util::Objective_Function(child1);
+                average += Util::Objective_Function(child2);
+
                 new_population.push_back(child1);
                 new_population.push_back(child2);
             }
-
+            average /= new_population.size();
             population = new_population;
 
+            cout << generation << endl;
+            cout << average << endl;
+            cout << *max_element(fitnesses.begin(), fitnesses.end()) << endl;
+
+            auto best_it = max_element(fitnesses.begin(), fitnesses.end());
+            auto best = population[best_it - fitnesses.begin()];
+            for(int j = 0; j < best.size(); j++){
+                cout << best[j] << " ";
+            }
+            cout << endl;
+
             if (generation % 100 == 0) {
-                cout << "Generation " << generation << ", Max fitness: " << *max_element(fitnesses.begin(), fitnesses.end()) << endl;
+                // cout << "Generation " << generation << ", Max fitness: " << *max_element(fitnesses.begin(), fitnesses.end()) << endl;
             }
         }
 
@@ -303,11 +320,6 @@ vector<int> simulatedAnnealing(problem p, Scheduler scheduler, double thresh = 0
         cout << i << endl;
         Node next = p.get_neighbor_random();
         int delta = next.value - current.value;
-        if (delta == 0) {
-            cont++;
-        } else {
-            cont = 0;
-        }
         if (delta > 0){
             cout << "1" << endl;
             pair<tuple<int, int, int>, tuple<int, int, int>> points = getPoint(next.state, current.state);
@@ -316,6 +328,7 @@ vector<int> simulatedAnnealing(problem p, Scheduler scheduler, double thresh = 0
             cout << endl;
             current = next;
         } else {
+            cont++;
             if (choose_next(delta, T, true, thresh)){
                 pair<tuple<int, int, int>, tuple<int, int, int>> points = getPoint(next.state, current.state);
                 print_point(points.first);
@@ -335,4 +348,5 @@ vector<int> simulatedAnnealing(problem p, Scheduler scheduler, double thresh = 0
         // }
         time++;
     }
+    cout << cont;
 }
