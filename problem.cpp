@@ -46,9 +46,12 @@ public:
         for (size_t i = 0; i < this->coordinates.size(); ++i) {
             for (size_t j = i + 1; j < this->coordinates.size(); ++j) {
                 this->all_pairs.emplace_back(this->coordinates[i], this->coordinates[j]);
-                penalties.push_back(0); // Initialize penalties for each pair
             }
         }
+
+        // shuffle if needed
+        std::mt19937 rng(random_seed);
+        shuffle(all_pairs.begin(), all_pairs.end(), rng);
     }
 
     int index(int z, int y, int x) const {
