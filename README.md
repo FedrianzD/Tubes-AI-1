@@ -13,11 +13,11 @@ Repository ini berisi implementasi berbagai algoritma local search untuk menyele
    ```
 3. Compile Program
    ```
-   
+   gcc main.cpp -o main
    ```
 4. Execute
    ```
-   
+   .\main.exe
    ```
 
 ## Pembagian Tugas Anggota Kelompok
