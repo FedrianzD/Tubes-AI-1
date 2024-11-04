@@ -18,7 +18,7 @@ Repository ini berisi implementasi berbagai algoritma local search untuk menyele
 4. Execute
    ```
    ./main.exe > [NamaAlgoritma].txt
-   python /visualization/gui.py
+   python /visualization/gui.py (visualization only works in Mac)
    ```
 
 ## Pembagian Tugas Anggota Kelompok
