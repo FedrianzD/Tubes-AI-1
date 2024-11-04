@@ -23,7 +23,7 @@ int main(){
         result = Util::convertTo3D(steepestHillClimb(p).state, 5, 5, 5);
         break;
     case 2:
-        result = Util::convertTo3D(SidewaysHillClimb(p).state, 5, 5, 5);
+        result = Util::convertTo3D(SidewaysHillClimb(p, 5000).state, 5, 5, 5);
         break;
     case 3:
         result = Util::convertTo3D(RandomRestartHillClimbing(), 5, 5, 5);
