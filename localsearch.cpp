@@ -261,6 +261,7 @@ vector<int> simulatedAnnealing(problem p, Scheduler scheduler, double thresh = 0
     for(int j = 0; j < current.state.size(); j++){
                 cout << current.state[j] << " ";
     }
+    cout << endl;
     int time = 1;
     while (true){
         i++;
