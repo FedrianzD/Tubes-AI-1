@@ -16,20 +16,20 @@ Node steepestHillClimb(problem p) {
     cout << "HC" << endl;
     Node current = Node(p.current_state);
     int i = 0;
-    cout << i << endl;
-    cout << current.value << endl;
+    cout << "iterasi: " << i << endl;
+    cout << "value: " << current.value << endl;
     for(int j = 0; j < current.state.size(); j++){
                 cout << current.state[j] << " ";
     }
     while (true) {
         i++;
-        cout << i << endl;
+        cout << "iterasi: " << i << endl;
         Node neighbor = p.get_neighbor();
         if (neighbor.value <= current.value) {
             return current;
         }
         current = neighbor;
-        cout << current.value << endl;
+        cout << "value: " << current.value << endl;
     }
 }
 
@@ -37,20 +37,20 @@ Node SidewaysHillClimb(problem p) {
     cout << "SMHC" << endl;
     Node current = Node(p.current_state);
     int i = 0;
-    cout << i << endl;
-    cout << current.value << endl;
+    cout << "iterasi: " << i << endl;
+    cout << "value: " << current.value << endl;
     for(int j = 0;j < current.state.size(); j++){
                 cout << current.state[j] << " ";
     }
     while (true) {
         i++;
-        cout << i << endl;
+        cout << "iterasi: " << i << endl;
         Node neighbor = p.get_neighbor();
         if (neighbor.value < current.value) {
             return current;
         }
         current = neighbor;
-        cout << current.value << endl;
+        cout << "value: " << current.value << endl;
     }
 }
 
@@ -248,7 +248,7 @@ bool choose_next(double delta, double T, bool static2 = true, double thresh = 0.
         thresh = distFloat(rng);
     }
     // cout << (proba > thresh) << endl;
-    cout << proba << endl;
+    cout << "proba: " << proba << endl;
     return proba > thresh;
 }
 vector<int> simulatedAnnealing(problem p, Scheduler scheduler, double thresh = 0.5){
@@ -256,8 +256,8 @@ vector<int> simulatedAnnealing(problem p, Scheduler scheduler, double thresh = 0
     Node current = Node(p.current_state);
     cout << "SA" << endl;
     int i = 0;
-    cout << i << endl;
-    cout << current.value << endl;
+    cout << "iterasi: " << i << endl;
+    cout << "value: " << current.value << endl;
     for(int j = 0; j < current.state.size(); j++){
                 cout << current.state[j] << " ";
     }
@@ -282,7 +282,7 @@ vector<int> simulatedAnnealing(problem p, Scheduler scheduler, double thresh = 0
                 current = next;
             }
         }
-        cout << current.value << endl;
+        cout << "value: " << current.value << endl;
         // cout << "t: " << time << endl;
         // cout << "value: " << current.value << endl;
         if (time % 10000 == 0) {
