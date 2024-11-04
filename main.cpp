@@ -11,6 +11,12 @@ int main(){
     problem p = problem(5, 0);
     vector<vector<vector<int>>> result;
     Scheduler scheduler;
+    string tipe;
+    double T0;
+    double alpha;
+    double beta;
+    double k;
+    GeneticAlgo gen;
     switch (algo)
     {
     case 1:
@@ -30,25 +36,25 @@ int main(){
         break;
     case 5:
         cout << "Masukkan tipe scheduler (linear, exp, log): ";
-        string tipe;
+        
         cin >> tipe;
         cout << "Masukkan T0: ";
-        double T0;
+        
         cin >> T0;
         cout << "Masukkan alpha: ";
-        double alpha;
+        
         cin >> alpha;
         cout << "Masukkan beta: ";
-        double beta;
+        
         cin >> beta;
         cout << "Masukkan k: ";
-        double k;
+        
         cin >> k;
         scheduler = Scheduler(tipe, T0, alpha, beta, k);
         result = Util::convertTo3D(simulatedAnnealing(p, scheduler), 5, 5, 5);
         break;
     case 6:
-        GeneticAlgo gen = GeneticAlgo();
+        gen = GeneticAlgo();
         result = Util::convertTo3D(gen.genetic_algo(),5,5,5);
         break;
     default:
