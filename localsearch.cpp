@@ -89,6 +89,17 @@ vector<int> RandomRestartHillClimbing() {
     return best_state;
 }
 
+vector<int> StochasticHillClimb(problem p, int iter){
+    Node current = Node(p.current_state);  
+    for (int i = 0; i < iter; ++i) {
+        Node neighbor = p.get_neighbor_random(); 
+        if (neighbor.value > current.value) {
+            current = neighbor;
+        }
+    }
+    return current.state;  
+}
+
 class GeneticAlgo {
 public:
     int pop_size, n, generations;
